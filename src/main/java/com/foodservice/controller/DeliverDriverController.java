@@ -1,8 +1,8 @@
 package com.foodservice.controller;
 
 import com.foodservice.entity.dto.DeliveryDriverDTO;
+import com.foodservice.service.DeliveryDriverService;
 //import com.foodservice.entity.dto.OrderDeliveryDTO;
-import com.foodservice.service.DeliveryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DeliverDriverController {
     @Autowired
-    private DeliveryService service;
+    private DeliveryDriverService service;
 
     // -------- Get all drivers ----------
     @GetMapping("/drivers")

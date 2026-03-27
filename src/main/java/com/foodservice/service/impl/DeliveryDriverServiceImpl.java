@@ -8,6 +8,9 @@ import com.foodservice.entity.DeliveryDriver;
 //import com.foodservice.mapper.DeliveryOrderMapper;
 //import com.foodservice.repository.OrderRepository;
 import com.foodservice.service.DeliveryDriverService;
+
+import lombok.RequiredArgsConstructor;
+
 import com.foodservice.repository.DeliveryDriverRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +19,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 
-    @Autowired
-    private DeliveryDriverRepo driverRepository;
+    private final DeliveryDriverRepo driverRepository;
 
 //    @Autowired
 //    private OrderRepository orderRepository;

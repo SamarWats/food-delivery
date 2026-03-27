@@ -1,4 +1,5 @@
 package com.foodservice.entity.dto;
 
-public class CustomerDto {
+public class CouponRequestDTO {
+
 }
