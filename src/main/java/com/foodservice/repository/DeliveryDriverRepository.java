@@ -7,11 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.foodservice.entity.DeliveryDriver;
 
 @Repository
 public interface DeliveryDriverRepository extends JpaRepository<DeliveryDriver, Long> {
 	@Query("SELECT DISTINCT d FROM DeliveryDriver d JOIN FETCH d.orders")
     List<DeliveryDriver> findDriversWithOrders();
+
+	Optional<DeliveryDriver> findById(Integer id);
 
 }
