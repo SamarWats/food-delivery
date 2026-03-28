@@ -65,6 +65,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Integer getAddressCount(Integer customerId) {
+
+        if (!customerRepository.existsById(customerId)) {
+            throw new ResourceNotFoundException(
+                    "Customer not found with id: " + customerId
+            );
+        }
+
         return addressRepository.countByCustomerCustomerId(customerId);
     }
 
