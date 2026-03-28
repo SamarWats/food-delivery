@@ -20,12 +20,6 @@ public class DeliveryAddressController {
     @GetMapping("/customers/{customerId}/addresses")
     public ResponseEntity<ResponseDTO> getAddressesByCustomerId(@PathVariable Integer customerId) {
         List<DeliveryAddressDTO> data = service.getAddressesByCustomerId(customerId);
-
-        if (data == null || data.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseDTO(404, "No addresses found", null));
-        }
-
         return ResponseEntity.ok(
                 new ResponseDTO(200, "Addresses fetched successfully", data)
         );
@@ -34,11 +28,6 @@ public class DeliveryAddressController {
     @GetMapping("/addresses/{addressId}")
     public ResponseEntity<ResponseDTO> getAddressById(@PathVariable Integer addressId) {
         DeliveryAddressDTO data = service.getAddressById(addressId);
-
-        if (data == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseDTO(404, "Address not found", null));
-        }
 
         return ResponseEntity.ok(
                 new ResponseDTO(200, "Address fetched successfully", data)
@@ -58,11 +47,6 @@ public class DeliveryAddressController {
     public ResponseEntity<ResponseDTO> getAddressesByCity(@RequestParam String city) {
         List<DeliveryAddressDTO> data = service.getAddressesByCity(city);
 
-        if (data == null || data.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseDTO(404, "No addresses found for given city", null));
-        }
-
         return ResponseEntity.ok(
                 new ResponseDTO(200, "Addresses fetched by city successfully", data)
         );
@@ -71,11 +55,6 @@ public class DeliveryAddressController {
     @GetMapping("/customers/{customerId}/addresses/default")
     public ResponseEntity<ResponseDTO> getDefaultAddress(@PathVariable Integer customerId) {
         DeliveryAddressDTO data = service.getDefaultAddress(customerId);
-
-        if (data == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ResponseDTO(404, "Default address not found", null));
-        }
 
         return ResponseEntity.ok(
                 new ResponseDTO(200, "Default address fetched successfully", data)
