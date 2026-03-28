@@ -67,7 +67,6 @@ public class CustomMapper {
     }
 
     public static OrderDTO orderToOrderDTO(Order order, OrderDTO orderDTO) {
-<<<<<<< HEAD
         DeliveryDriverDTO deliveryDriverDTO = new DeliveryDriverDTO();
         deliveryDriverDTO.setDriverName(order.getDeliveryDriver().getDriverName());
         deliveryDriverDTO.setDriverPhone(order.getDeliveryDriver().getDriverPhone());
@@ -76,17 +75,13 @@ public class CustomMapper {
         orderDTO.setCustomer(customerToCustomerDTO(order.getCustomer()));
         orderDTO.setRestaurant(toRestaurantDto(order.getRestaurant()));
         orderDTO.setDeliveryDriver(deliveryDriverDTO);
-=======
         orderDTO.setCustomer(order.getCustomer());
         orderDTO.setRestaurant(order.getRestaurant());
         orderDTO.setDeliveryDriver(order.getDeliveryDriver());
->>>>>>> c35b463 (fix(order): getOrderByCustomerId controller is implimented (#17))
         orderDTO.setOrderStatus(order.getOrderStatus());
         orderDTO.setOrderDate(order.getOrderDate());
         return orderDTO;
     }
-<<<<<<< HEAD
-
 
 
     public static DeliveryAddressDTO deliveryAddressToDTO(DeliveryAddress address) {
@@ -139,6 +134,4 @@ public class CustomMapper {
         return dto;
     }
     
-=======
->>>>>>> c35b463 (fix(order): getOrderByCustomerId controller is implimented (#17))
 }
