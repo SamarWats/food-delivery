@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.foodservice.entity.DeliveryDriver;
 
 @Repository
@@ -16,5 +18,7 @@ public interface DeliveryDriverRepository extends JpaRepository<DeliveryDriver, 
 	
 	@Query("SELECT o FROM Order o WHERE o.deliveryDriver.driverId = :driverId")
 	List<Order> findOrdersByDriverId(Long driverId);
+
+	Optional<DeliveryDriver> findById(Integer id);
 
 }
