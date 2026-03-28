@@ -82,18 +82,16 @@ public class CustomMapper {
     }
 
     
-    public static DeliveryDriverResponseDTO deliveryDriverToDTO(DeliveryDriver driver) {
-        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+    public static DeliveryDriverDTO deliveryDriverToDTO(DeliveryDriver driver) {
+        DeliveryDriverDTO dto = new DeliveryDriverDTO();
 
         dto.setDriverId(driver.getDriverId());
         dto.setDriverName(driver.getDriverName());
         dto.setDriverPhone(driver.getDriverPhone());
         dto.setDriverVehicle(driver.getDriverVehicle());
-        
+
         return dto;
-
     }
-
 
 
     public static DeliveryAddressDTO deliveryAddressToDTO(DeliveryAddress address) {

@@ -13,8 +13,5 @@ import com.foodservice.entity.DeliveryDriver;
 public interface DeliveryDriverRepository extends JpaRepository<DeliveryDriver, Long> {
 	@Query("SELECT DISTINCT d FROM DeliveryDriver d JOIN FETCH d.orders")
     List<DeliveryDriver> findDriversWithOrders();
-	
-	@Query("SELECT o FROM Order o WHERE o.deliveryDriver.driverId = :driverId")
-	List<Order> findOrdersByDriverId(Long driverId);
 
 }

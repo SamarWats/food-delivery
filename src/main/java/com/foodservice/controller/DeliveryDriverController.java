@@ -1,5 +1,6 @@
 package com.foodservice.controller;
 
+import com.foodservice.entity.dto.DeliveryDriverDTO;
 import com.foodservice.entity.dto.DeliveryDriverResponseDTO;
 import com.foodservice.service.DeliveryDriverService;
 
@@ -15,17 +16,16 @@ import java.util.List;
 public class DeliveryDriverController {
 	
 	
-    private DeliveryDriverService deliveryDriverservice ;
+	private final DeliveryDriverService deliveryDriverservice=null;
 
     // ------- Get Driver by ID ----------
     @GetMapping("/{driverId}")
-    public ResponseEntity<DeliveryDriverResponseDTO> getDriverById(@PathVariable Long driverId) {
+    public ResponseEntity<DeliveryDriverDTO> getDriverById(@PathVariable Long driverId) {
         return ResponseEntity.ok(deliveryDriverservice.getDriverById(driverId));
     }
 
-    // ----- Get All Drivers ----------
     @GetMapping
-    public ResponseEntity<List<DeliveryDriverResponseDTO>> getAllDrivers() {
+    public ResponseEntity<List<DeliveryDriverDTO>> getAllDrivers() {
         return ResponseEntity.ok(deliveryDriverservice.getAllDrivers());
     }
 

@@ -6,16 +6,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeliveryDriverResponseDTO {
-//
-//    private Long driverId;
-//    private String driverName;
-//    private String driverPhone;
-//    private String driverVehicle;
-
-    private Integer orderId;
-    private String customerName;
-    private String resturentName;
-    private String orderStatus;
+    Integer orderId;
+    String customerName;
+    String restaurantName;
+    String orderStatus;
     
     
 }
