@@ -98,7 +98,15 @@ public class CustomMapper {
         dto.setCity(address.getCity());
         dto.setState(address.getState());
         dto.setPostalCode(address.getPostalCode());
+    }
+    
+    public static DeliveryDriverResponseDTO deliveryDriverToDTO(DeliveryDriver driver) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
 
+        dto.setDriverId(driver.getDriverId());
+        dto.setDriverName(driver.getDriverName());
+        dto.setDriverPhone(driver.getDriverPhone());
+        dto.setDriverVehicle(driver.getDriverVehicle());
         return dto;
     }
     
