@@ -1,5 +1,6 @@
 package com.foodservice.entity.dto;
 
+
 public class CouponResponseDTO {
 
 	private String code;
