@@ -1,6 +1,7 @@
 package com.foodservice.config;
 
 import com.foodservice.entity.Customer;
+import com.foodservice.entity.DeliveryDriver;
 import com.foodservice.entity.MenuItem;
 import com.foodservice.entity.Order;
 import com.foodservice.entity.Restaurant;
@@ -72,4 +73,17 @@ public class CustomMapper {
         orderDTO.setOrderDate(order.getOrderDate());
         return orderDTO;
     }
+    
+    public static DeliveryDriverResponseDTO deliveryDriverToDTO(DeliveryDriver driver) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+
+        dto.setDriverId(driver.getDriverId());
+        dto.setDriverName(driver.getDriverName());
+        dto.setDriverPhone(driver.getDriverPhone());
+        dto.setDriverVehicle(driver.getDriverVehicle());
+
+        return dto;
+    }
+
+    
 }
