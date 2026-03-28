@@ -23,7 +23,7 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 	private final OrderRepository orderRepository=null;
 	
 	@Override
-	public DeliveryDriverDTO getDriverById(Long id) {
+	public DeliveryDriverDTO getDriverById(Integer id) {
 	    DeliveryDriver driver = deliveryDriverRepository.findById(id)
 	            .orElseThrow(() -> new DriverNotFoundException("Driver Not Found"));
 
@@ -39,7 +39,13 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 	}
 
 	@Override
-	public List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId) {
+	public List<DeliveryDriverResponseDTO> getDriverDeliveries(Integer driverId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DeliveryDriverDTO getDriverById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

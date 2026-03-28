@@ -20,7 +20,7 @@ public class DeliveryDriverController {
 
     // ------- Get Driver by ID ----------
     @GetMapping("/{driverId}")
-    public ResponseEntity<DeliveryDriverDTO> getDriverById(@PathVariable Long driverId) {
+    public ResponseEntity<DeliveryDriverDTO> getDriverById(@PathVariable Integer driverId) {
         return ResponseEntity.ok(deliveryDriverservice.getDriverById(driverId));
     }
 

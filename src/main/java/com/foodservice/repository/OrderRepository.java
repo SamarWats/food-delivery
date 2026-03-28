@@ -53,5 +53,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     WHERE o.orderId = :orderId
 """)
     List<OrderItemDetailDTO> getOrderDetailsByOrderId(@Param("orderId") Integer orderId);
-    List<Order> findOrdersByDriverId(Long driverId);
+    
+    @Query("SELECT o FROM Order o WHERE o.deliveryDriver.driverId = :driverId")
+    List<Order> findOrdersByDriverId(Integer driverId);
 }

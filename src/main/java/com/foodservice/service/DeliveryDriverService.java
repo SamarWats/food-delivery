@@ -13,5 +13,6 @@ public interface DeliveryDriverService {
 
 	DeliveryDriverDTO getDriverById(Long id);
 	List<DeliveryDriverDTO> getAllDrivers();
-	List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId);
+	List<DeliveryDriverResponseDTO> getDriverDeliveries(Integer driverId);
+	DeliveryDriverDTO getDriverById(Integer id);
 }
