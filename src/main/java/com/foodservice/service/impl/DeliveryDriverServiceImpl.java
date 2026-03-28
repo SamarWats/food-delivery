@@ -19,8 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 
-	private final DeliveryDriverRepository deliveryDriverRepository;
-	private final OrderRepository orderRepository;
+	private final DeliveryDriverRepository deliveryDriverRepository=null;
+	private final OrderRepository orderRepository=null;
 	
 	@Override
 	public DeliveryDriverDTO getDriverById(Long id) {
@@ -38,6 +38,12 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 	            .toList();
 	}
 
+	@Override
+	public List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //    @Override
 //    public List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId) {
 //
@@ -51,31 +57,31 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 //        )).toList();
 //    }
 
-	@Override
-	public List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId) {
-
-	    List<Order> orders = orderRepository.findOrdersByDriverId(driverId);
-
-	    return orders.stream().map(order -> {
-
-	        String customerName = (order.getCustomer() != null)
-	                ? order.getCustomer().getCustomerName()
-	                : "N/A";
-
-	        String restaurantName = (order.getRestaurant() != null)
-	                ? order.getRestaurant().getRestaurantName()
-	                : "N/A";
-
-	        return new DeliveryDriverResponseDTO(
-	                order.getOrderId(),
-	                customerName,
-	                restaurantName,
-	                order.getOrderStatus()
-	        );
-
-	    }).toList();   // ✅ CORRECT CLOSING
-	}
-    
+//	@Override
+//	public List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId) {
+//
+//	    List<Order> orders = orderRepository.findOrdersByDriverId(driverId);
+//
+//	    return orders.stream().map(order -> {
+//
+//	        String customerName = (order.getCustomer() != null)
+//	                ? order.getCustomer().getCustomerName()
+//	                : "N/A";
+//
+//	        String restaurantName = (order.getRestaurant() != null)
+//	                ? order.getRestaurant().getRestaurantName()
+//	                : "N/A";
+//
+//	        return new DeliveryDriverResponseDTO(
+//	                order.getOrderId(),
+//	                customerName,
+//	                restaurantName,
+//	                order.getOrderStatus()
+//	        );
+//
+//	    }).toList();   // ✅ CORRECT CLOSING
+//	}
+//    
 //	@Override
 //	public List<DeliveryDriver> getDriversWithOrders() {
 //		// TODO Auto-generated method stub
