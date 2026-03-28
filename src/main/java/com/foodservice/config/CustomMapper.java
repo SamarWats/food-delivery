@@ -1,10 +1,12 @@
 package com.foodservice.config;
 
+
 import com.foodservice.entity.Customer;
 import com.foodservice.entity.DeliveryDriver;
 import com.foodservice.entity.MenuItem;
 import com.foodservice.entity.Order;
 import com.foodservice.entity.Restaurant;
+import com.foodservice.entity.*;
 import com.foodservice.entity.dto.*;
 import org.springframework.stereotype.Component;
 
@@ -78,6 +80,7 @@ public class CustomMapper {
         orderDTO.setOrderDate(order.getOrderDate());
         return orderDTO;
     }
+
     
     public static DeliveryDriverResponseDTO deliveryDriverToDTO(DeliveryDriver driver) {
         DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
@@ -87,8 +90,44 @@ public class CustomMapper {
         dto.setDriverPhone(driver.getDriverPhone());
         dto.setDriverVehicle(driver.getDriverVehicle());
 
+
+
+
+    public static DeliveryAddressDTO deliveryAddressToDTO(DeliveryAddress address) {
+        DeliveryAddressDTO dto = new DeliveryAddressDTO();
+
+        dto.setId(address.getAddressId());
+
+        if (address.getCustomer() != null) {
+            dto.setCustomerId(address.getCustomer().getCustomerId());
+        }
+
+        dto.setAddressLine1(address.getAddressLine1());
+        dto.setAddressLine2(address.getAddressLine2());
+        dto.setCity(address.getCity());
+        dto.setState(address.getState());
+        dto.setPostalCode(address.getPostalCode());
+
         return dto;
     }
 
-    
+    public static DeliveryAddress dtoToDeliveryAddress(DeliveryAddressDTO dto) {
+        DeliveryAddress address = new DeliveryAddress();
+
+        address.setAddressId(dto.getId());
+
+        if (dto.getCustomerId() != null) {
+            Customer customer = new Customer();
+            customer.setCustomerId(dto.getCustomerId());
+            address.setCustomer(customer);
+        }
+
+        address.setAddressLine1(dto.getAddressLine1());
+        address.setAddressLine2(dto.getAddressLine2());
+        address.setCity(dto.getCity());
+        address.setState(dto.getState());
+        address.setPostalCode(dto.getPostalCode());
+
+        return address;
+    }
 }
