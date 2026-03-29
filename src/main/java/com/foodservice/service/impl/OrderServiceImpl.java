@@ -6,10 +6,8 @@ import com.foodservice.entity.Order;
 import com.foodservice.entity.dto.OrderCustomerDTO;
 import com.foodservice.entity.dto.OrderDTO;
 import com.foodservice.entity.dto.OrderItemDetailDTO;
-<<<<<<< HEAD
 import com.foodservice.exception.OrderInvalidRequestException;
-=======
->>>>>>> origin/dev
+import com.foodservice.exception.OrderInvalidRequestException;
 import com.foodservice.repository.CustomerRepository;
 import com.foodservice.repository.OrderRepository;
 import com.foodservice.service.OrderService;
@@ -31,7 +29,6 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItemDetailDTO> orderDetails = orderRepository.getOrderDetailsByOrderId(orderId);
         Order order = orderRepository.findById(orderId).orElse(null);
         List<OrderItemDetailDTO> orderDetails = orderRepository.getOrderDetailsByOrderId(orderId);
-        if (order == null) return null;
         OrderDTO orderDTO = CustomMapper.orderToOrderDTO(order, new OrderDTO());
         orderDTO.setOrderItems(orderDetails);
         return orderDTO;
