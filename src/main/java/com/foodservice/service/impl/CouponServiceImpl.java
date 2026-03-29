@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.foodservice.entity.dto.OrderCouponDTO;
+import com.foodservice.exception.ResourceNotFoundException;
 import com.foodservice.repository.CoupoonRepository;
 import com.foodservice.service.CouponService;
 
@@ -24,7 +25,7 @@ public class CouponServiceImpl implements CouponService {
 
         // Optional safety check
         if (coupons.isEmpty()) {
-            throw new RuntimeException("No coupons found for this order");
+            throw new ResourceNotFoundException("No coupons found for this order");
         }
 
         return coupons;

@@ -3,29 +3,33 @@ package com.foodservice.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.foodservice.entity.dto.OrderCouponDTO;
+import com.foodservice.entity.dto.ResponseDTO;
 import com.foodservice.service.CouponService;
 
 @RestController
-@RequestMapping("/api/v1/orders")
+@RequestMapping("/api/v1/coupons")   //changed the routing
 public class CouponController {
 
-	private CouponService couponService;
+    private final CouponService couponService;
 
-	public CouponController(CouponService couponService) {
-		this.couponService = couponService;
-	}
+    public CouponController(CouponService couponService) {
+        this.couponService = couponService;
+    }
 
-	@GetMapping("/{id}/coupons")
-	public ResponseEntity<List<OrderCouponDTO>> getCoupons(@PathVariable int id) {
-		List<OrderCouponDTO> coupons = couponService.getCouponsByOrder(id);
+    @GetMapping("/order/{id}")
+    public ResponseEntity<ResponseDTO> getCoupons(@PathVariable Integer id) {
 
-		return ResponseEntity.ok(coupons);
-	}
+        List<OrderCouponDTO> coupons = couponService.getCouponsByOrder(id);
 
+        return ResponseEntity.ok(
+            new ResponseDTO(
+                200,
+                "Coupons fetched successfully",
+                coupons
+            )
+        );
+    }
 }
