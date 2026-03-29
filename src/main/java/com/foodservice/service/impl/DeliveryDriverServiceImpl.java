@@ -23,7 +23,7 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 
 
     @Override
-    public DeliveryDriverResponseDTO getDriverById(Long id) {
+    public DeliveryDriverResponseDTO getDriverById(Integer id) {
         DeliveryDriver driver = deliveryDriverRepository.findById(id)
                 .orElseThrow(() -> new DriverNotFoundException("Driver Not Found"));
 
