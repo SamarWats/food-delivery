@@ -55,4 +55,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<OrderItemDetailDTO> getOrderDetailsByOrderId(@Param("orderId") Integer orderId);
 
     List<Order> findByDriver_DriverId(Integer driverId);
+    List<Order> findByDeliveryDriverByDriverId(Integer driverId);
 }

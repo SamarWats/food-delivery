@@ -14,33 +14,33 @@ import java.util.List;
 @RequestMapping("/api/drivers")
 @RequiredArgsConstructor
 public class DeliveryDriverController {
-	
-	
-    private final DeliveryDriverService deliveryDriverservice = null;
+
+    private final DeliveryDriverService deliveryDriverService;
 
     // ------- Get Driver by ID ----------
     @GetMapping("/{driverId}")
     public ResponseEntity<ResponseDTO> getDriverById(@PathVariable Integer driverId) {
-        
-        DeliveryDriverResponseDTO dto = deliveryDriverservice.getDriverById(driverId);
 
-        return ResponseEntity.status(200).body(new ResponseDTO(200, "Driver fetched successfully", dto));
+        DeliveryDriverResponseDTO dto = deliveryDriverService.getDriverById(driverId);
+
+        return ResponseEntity.ok(new ResponseDTO(200, "Driver fetched successfully", dto));
     }
 
     // ----- Get All Drivers ----------
     @GetMapping
     public ResponseEntity<ResponseDTO> getAllDrivers() {
-        
-        List<DeliveryDriverResponseDTO> drivers = deliveryDriverservice.getAllDrivers();
 
-        return ResponseEntity.status(200).body(new ResponseDTO(200, "All drivers fetched successfully", drivers));
+        List<DeliveryDriverResponseDTO> drivers = deliveryDriverService.getAllDrivers();
+
+        return ResponseEntity.ok(new ResponseDTO(200, "All drivers fetched successfully", drivers));
     }
+
     //------- Get Driver Deliveries ----------
     @GetMapping("/{driverId}/deliveries")
-    public ResponseEntity<ResponseDTO> getDriverDeliveries(@PathVariable Long driverId) {
-        
-        List<DeliveryDriverResponseDTO> deliveries = deliveryDriverservice.getDriverDeliveries(driverId);
+    public ResponseEntity<ResponseDTO> getDriverDeliveries(@PathVariable Integer driverId) {
 
-        return ResponseEntity.status(200).body(new ResponseDTO(200, "Driver deliveries fetched successfully", deliveries));
+        List<DeliveryDriverResponseDTO> deliveries = deliveryDriverService.getDriverDeliveries(driverId);
+
+        return ResponseEntity.ok(new ResponseDTO(200, "Driver deliveries fetched successfully", deliveries));
     }
 }

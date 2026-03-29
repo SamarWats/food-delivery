@@ -39,9 +39,9 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
     }
 
     @Override
-    public List<DeliveryDriverResponseDTO> getDriverDeliveries(Long driverId) {
+    public List<DeliveryDriverResponseDTO> getDriverDeliveries(Integer driverId) {
 
-        List<Order> orders = orderRepository.findOrdersByDriverId(driverId);
+    	List<Order> orders = orderRepository.findByDeliveryDriverByDriverId(driverId);
 
         return orders.stream()
                 .map(order -> {
