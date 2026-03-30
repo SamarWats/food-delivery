@@ -2,7 +2,9 @@ package com.foodservice.service.impl;
 
 import com.foodservice.config.CustomMapper;
 import com.foodservice.entity.Customer;
+import com.foodservice.entity.DeliveryDriver;
 import com.foodservice.entity.Order;
+import com.foodservice.entity.dto.DeliveryDriverResponseDTO;
 import com.foodservice.entity.dto.OrderCustomerDTO;
 import com.foodservice.entity.dto.OrderDTO;
 import com.foodservice.entity.dto.OrderItemDetailDTO;
@@ -20,7 +22,12 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
-
+    
+    public OrderServiceImpl(OrderRepository orderRepository,CustomerRepository customerRepository) {
+    		this.orderRepository = orderRepository;
+    		this.customerRepository = customerRepository;
+    }
+    
     @Override
     public OrderDTO getOrderDetailsById(Integer orderId) {
         Order order = orderRepository.findById(orderId)
@@ -40,5 +47,22 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setCustomer(customer);
         orderDTO.setOrderItems(orderDetails);
         return orderDTO;
+    }
+    
+    @Override
+    public DeliveryDriverResponseDTO getDriverByOrderId(Integer orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        DeliveryDriver driver = order.getDeliveryDriver();
+
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setDriverId(driver.getDriverId());
+        dto.setDriverName(driver.getDriverName());
+        dto.setDriverPhone(driver.getDriverPhone());
+        dto.setDriverVehicle(driver.getDriverVehicle());
+
+        return dto;
     }
 }

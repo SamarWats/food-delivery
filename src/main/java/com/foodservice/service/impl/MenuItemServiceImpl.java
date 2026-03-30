@@ -21,6 +21,11 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
     private final RestaurantRepository restaurantRepository;
+    
+    public MenuItemServiceImpl(MenuItemRepository menuItemRepository, RestaurantRepository restaurantRepository) {
+			this.menuItemRepository = menuItemRepository;
+			this.restaurantRepository = restaurantRepository;
+	}
 
 //    @Override
 //    public MenuItemResponseDTO addMenuItem(MenuItemRequestDTO requestDTO) {
@@ -42,11 +47,21 @@ public class MenuItemServiceImpl implements MenuItemService {
 //        return customMapper.toMenuItemDto(savedItem);
 //    }
 
+//    @Override
+//    public Page<MenuItemResponseDTO> getMenuByRestaurantId(Integer restaurantId, Pageable pageable) {
+//        log.info("Fetching menu for restaurant ID: {} - Page: {}", restaurantId, pageable.getPageNumber());
+//
+//        return menuItemRepository.findByRestaurant_RestaurantId(restaurantId, pageable)
+//                .map(CustomMapper::toMenuItemDto);
+//    }
+    
     @Override
     public Page<MenuItemResponseDTO> getMenuByRestaurantId(Integer restaurantId, Pageable pageable) {
+
         log.info("Fetching menu for restaurant ID: {} - Page: {}", restaurantId, pageable.getPageNumber());
 
-        return menuItemRepository.findByRestaurant_RestaurantId(restaurantId, pageable)
+        return menuItemRepository
+                .findByRestaurant_RestaurantId(restaurantId, pageable)
                 .map(CustomMapper::toMenuItemDto);
     }
 }

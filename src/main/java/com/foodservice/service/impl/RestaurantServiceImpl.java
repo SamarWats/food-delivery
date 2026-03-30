@@ -19,6 +19,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
+    public RestaurantServiceImpl(RestaurantRepository restaurantRepository) {
+		this.restaurantRepository = restaurantRepository;
+	}
+    
 //    @Override
 //    public RestaurantResponseDTO createRestaurant(RestaurantRequestDTO requestDTO) {
 //        log.info("Creating new restaurant: {}", requestDTO.getRestaurantName());

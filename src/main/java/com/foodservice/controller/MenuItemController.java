@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.*;
 public class MenuItemController {
 
     private final MenuItemService menuItemService;
+    
+    public MenuItemController(MenuItemService menuItemService) {
+		this.menuItemService = menuItemService;
+	}
 
     @GetMapping("/fetchByRestaurant/{restaurantId}")
     public ResponseEntity<ResponseDTO> fetchMenuByRestaurantId(

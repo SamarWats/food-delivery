@@ -30,4 +30,46 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<MenuItem> menuItems = new ArrayList<>();
+
+	public Integer getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(Integer restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+
+	public String getRestaurantAddress() {
+		return restaurantAddress;
+	}
+
+	public void setRestaurantAddress(String restaurantAddress) {
+		this.restaurantAddress = restaurantAddress;
+	}
+
+	public String getRestaurantPhone() {
+		return restaurantPhone;
+	}
+
+	public void setRestaurantPhone(String restaurantPhone) {
+		this.restaurantPhone = restaurantPhone;
+	}
+
+	public List<MenuItem> getMenuItems() {
+		return menuItems;
+	}
+
+	public void setMenuItems(List<MenuItem> menuItems) {
+		this.menuItems = menuItems;
+	}
+    
+    
 }

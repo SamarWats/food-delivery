@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerService service;
+    private final CustomerService customerService;
+    
+    public CustomerController(CustomerService customerService) {
+    	this.customerService = customerService;
+    }
 
     @GetMapping("/{customerId}")
     public ResponseEntity<ResponseDTO> getCustomerById(@PathVariable Integer customerId) {
@@ -22,7 +26,7 @@ public class CustomerController {
                 .body(new ResponseDTO(
                         CustomerConstant.STATUS_200,
                         CustomerConstant.MESSAGE_CUSTOMER_FETCHED,
-                        service.getCustomerById(customerId)
+                        customerService.getCustomerById(customerId)
                 ));
     }
 
@@ -33,7 +37,7 @@ public class CustomerController {
                 .body(new ResponseDTO(
                         CustomerConstant.STATUS_200,
                         CustomerConstant.MESSAGE_CUSTOMERS_FETCHED,
-                        service.getAllCustomers()
+                        customerService.getAllCustomers()
                 ));
     }
 
@@ -44,7 +48,7 @@ public class CustomerController {
                 .body(new ResponseDTO(
                         CustomerConstant.STATUS_200,
                         CustomerConstant.MESSAGE_CUSTOMERS_FETCHED_BY_CITY,
-                        service.getCustomersByCity(city)
+                        customerService.getCustomersByCity(city)
                 ));
     }
 
@@ -55,7 +59,7 @@ public class CustomerController {
                 .body(new ResponseDTO(
                         CustomerConstant.STATUS_200,
                         CustomerConstant.MESSAGE_ADDRESS_COUNT_FETCHED,
-                        service.getAddressCount(customerId)
+                        customerService.getAddressCount(customerId)
                 ));
     }
 
@@ -66,7 +70,7 @@ public class CustomerController {
                 .body(new ResponseDTO(
                         CustomerConstant.STATUS_200,
                         CustomerConstant.MESSAGE_CUSTOMER_ANALYTICS_FETCHED,
-                        service.getCustomerAnalytics(customerId)
+                        customerService.getCustomerAnalytics(customerId)
                 ));
     }
 }

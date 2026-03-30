@@ -26,6 +26,12 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final DeliveryAddressRepository addressRepository;
     private final OrderRepository orderRepository;
+    
+    public CustomerServiceImpl(CustomerRepository customerRepository, DeliveryAddressRepository addressRepository, OrderRepository orderRepository) {
+    			this.customerRepository = customerRepository;
+    			this.addressRepository = addressRepository;
+    			this.orderRepository = orderRepository;
+    }
 
     @Override
     public CustomerDTO getCustomerById(Integer customerId) {

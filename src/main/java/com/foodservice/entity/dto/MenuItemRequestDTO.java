@@ -20,4 +20,38 @@ public class MenuItemRequestDTO {
 
     @NotNull(message = "Restaurant ID is required")
     private Integer restaurantId;
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getItemDescription() {
+		return itemDescription;
+	}
+
+	public void setItemDescription(String itemDescription) {
+		this.itemDescription = itemDescription;
+	}
+
+	public BigDecimal getItemPrice() {
+		return itemPrice;
+	}
+
+	public void setItemPrice(BigDecimal itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+	public Integer getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(Integer restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+    
+    
 }

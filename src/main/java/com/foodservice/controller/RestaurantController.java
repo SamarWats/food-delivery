@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+    
+    public RestaurantController(RestaurantService restaurantService) {
+		this.restaurantService = restaurantService;
+	}
+    
+    
 
     @GetMapping("/fetch")
     public ResponseEntity<ResponseDTO> fetchRestaurants(

@@ -20,4 +20,40 @@ public class OrderDTO {
     private LocalDateTime orderDate;
     private String orderStatus;
     private List<OrderItemDetailDTO> orderItems;
+	public CustomerDTO getCustomer() {
+		return customer;
+	}
+	public void setCustomer(CustomerDTO customer) {
+		this.customer = customer;
+	}
+	public RestaurantResponseDTO getRestaurant() {
+		return restaurant;
+	}
+	public void setRestaurant(RestaurantResponseDTO restaurant) {
+		this.restaurant = restaurant;
+	}
+	public DeliveryDriverDTO getDeliveryDriver() {
+		return deliveryDriver;
+	}
+	public void setDeliveryDriver(DeliveryDriverDTO deliveryDriver) {
+		this.deliveryDriver = deliveryDriver;
+	}
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public List<OrderItemDetailDTO> getOrderItems() {
+		return orderItems;
+	}
+	public void setOrderItems(List<OrderItemDetailDTO> orderItems) {
+		this.orderItems = orderItems;
+	}
 }

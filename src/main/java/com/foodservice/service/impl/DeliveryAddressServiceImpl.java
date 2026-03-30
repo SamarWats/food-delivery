@@ -17,6 +17,10 @@ import java.util.List;
 public class DeliveryAddressServiceImpl implements DeliveryAddressService {
 
     private final DeliveryAddressRepository repository;
+    
+    public DeliveryAddressServiceImpl(DeliveryAddressRepository repository) {
+		this.repository = repository;
+	}
 
     @Override
     public List<DeliveryAddressDTO> getAddressesByCustomerId(Integer customerId) {

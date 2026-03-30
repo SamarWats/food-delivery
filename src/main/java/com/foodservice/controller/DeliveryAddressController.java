@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class DeliveryAddressController {
 
     private final DeliveryAddressService service;
+    
+    public DeliveryAddressController(DeliveryAddressService service) {
+		this.service = service;
+	}
 
     @GetMapping("/customers/{customerId}/addresses")
     public ResponseEntity<ResponseDTO> getAddressesByCustomerId(@PathVariable Integer customerId) {
