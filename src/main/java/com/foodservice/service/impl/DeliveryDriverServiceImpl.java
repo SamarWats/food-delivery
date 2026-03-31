@@ -46,7 +46,7 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
 
     @Override
     public List<DeliveryDriverResponseDTO> getDriverDeliveries(Integer driverId) {
-        List<Order> orders = orderRepository.findByDeliveryDriver_DriverId(driverId);
+        List<Order> orders = orderRepository.findByDeliveryDriverDriverId(driverId);
         return orders.stream().map(order -> {
             DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
             dto.setDriverId(order.getDeliveryDriver().getDriverId());
