@@ -1,11 +1,13 @@
 package com.foodservice.service;
 
-import com.foodservice.entity.dto.RestaurantRequestDTO;
+import com.foodservice.entity.dto.RatingResponseDTO;
 import com.foodservice.entity.dto.RestaurantResponseDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 
 public interface RestaurantService {
-//    RestaurantResponseDTO createRestaurant(RestaurantRequestDTO requestDTO);
-    Page<RestaurantResponseDTO> getAllRestaurants(Pageable pageable);
+
+    Page<RestaurantResponseDTO> getAllRestaurants(Integer page, Integer size);
+
+    Page<RatingResponseDTO> getRestaurantRatings(Integer restaurantId, Integer page, Integer size);
 }

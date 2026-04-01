@@ -1,8 +1,11 @@
 package com.foodservice.config;
 
-import com.foodservice.entity.*;
 import com.foodservice.entity.dto.*;
-import org.springframework.stereotype.Component;
+import com.foodservice.entity.*;
+
+import java.math.BigDecimal;
+
+import java.util.List;
 
 public class CustomMapper {
 
@@ -32,12 +35,11 @@ public class CustomMapper {
     }
 
     public static RestaurantResponseDTO toRestaurantDto(Restaurant entity) {
-        RestaurantResponseDTO dto = new RestaurantResponseDTO();
-        // dto.setRestaurantId(entity.getRestaurantId());
-        dto.setRestaurantName(entity.getRestaurantName());
-        dto.setRestaurantAddress(entity.getRestaurantAddress());
-        dto.setRestaurantPhone(entity.getRestaurantPhone());
-        return dto;
+        RestaurantResponseDTO restaurantResponseDTO = new RestaurantResponseDTO();
+        restaurantResponseDTO.setRestaurantName(entity.getRestaurantName());
+        restaurantResponseDTO.setRestaurantAddress(entity.getRestaurantAddress());
+        restaurantResponseDTO.setRestaurantPhone(entity.getRestaurantPhone());
+        return restaurantResponseDTO;
     }
 
     // MenuItem Mappings
@@ -50,18 +52,20 @@ public class CustomMapper {
     }
 
     public static MenuItemResponseDTO toMenuItemDto(MenuItem entity) {
-        MenuItemResponseDTO dto = new MenuItemResponseDTO();
-        dto.setItemId(entity.getItemId());
-        dto.setItemName(entity.getItemName());
-        dto.setItemDescription(entity.getItemDescription());
-        dto.setItemPrice(entity.getItemPrice());
+        MenuItemResponseDTO menuItemResponseDTO = new MenuItemResponseDTO();
+        menuItemResponseDTO.setItemId(entity.getItemId());
+        menuItemResponseDTO.setItemName(entity.getItemName());
+        menuItemResponseDTO.setItemDescription(entity.getItemDescription());
+        menuItemResponseDTO.setItemPrice(entity.getItemPrice());
         if (entity.getRestaurant() != null) {
-            dto.setRestaurantId(entity.getRestaurant().getRestaurantId());
+            menuItemResponseDTO.setRestaurantId(entity.getRestaurant().getRestaurantId());
         }
-        return dto;
+        return menuItemResponseDTO;
     }
 
+    // order mapper
     public static OrderDTO orderToOrderDTO(Order order, OrderDTO orderDTO) {
+
         DeliveryDriverDTO deliveryDriverDTO = new DeliveryDriverDTO();
         deliveryDriverDTO.setDriverName(order.getDeliveryDriver().getDriverName());
         deliveryDriverDTO.setDriverPhone(order.getDeliveryDriver().getDriverPhone());
@@ -72,7 +76,31 @@ public class CustomMapper {
         orderDTO.setDeliveryDriver(deliveryDriverDTO);
         orderDTO.setOrderStatus(order.getOrderStatus());
         orderDTO.setOrderDate(order.getOrderDate());
+
         return orderDTO;
+    }
+
+    // order with item mapper
+    public static OrderWithItemDTO orderToOrderWithItemDTO(Order order, OrderWithItemDTO orderWithItemDTO, List<ItemWithQuantity> itemWithQuantity) {
+
+        orderWithItemDTO.setOrderItems(itemWithQuantity);
+        orderWithItemDTO.setCustomer(customerToCustomerDTO(order.getCustomer()));
+        orderWithItemDTO.setRestaurant(toRestaurantDto(order.getRestaurant()));
+        orderWithItemDTO.setDeliveryDriver(deliveryDriverTODeliveryDriverDTO(order.getDeliveryDriver(), new DeliveryDriverDTO()));
+        orderWithItemDTO.setOrderDate(order.getOrderDate());
+        orderWithItemDTO.setOrderStatus(order.getOrderStatus());
+        return orderWithItemDTO;
+    }
+
+    // order item mapper
+    public static OrderItemDTO orderItemToOrderItemDTO(OrderItem orderItem, OrderItemDTO orderItemDTO) {
+
+
+        orderItemDTO.setOrderDTO(CustomMapper.orderToOrderDTO(orderItem.getOrder(), new OrderDTO()));
+        orderItemDTO.setMenuItemResponseDTO(CustomMapper.toMenuItemDto(orderItem.getMenuItem()));
+        orderItemDTO.setQuantity(orderItem.getQuantity());
+
+        return orderItemDTO;
     }
 
 
@@ -114,4 +142,30 @@ public class CustomMapper {
 
         return address;
     }
+
+    public static RatingResponseDTO toRatingDto(Rating entity) {
+        RatingResponseDTO ratingResponseDTO = new RatingResponseDTO();
+        ratingResponseDTO.setRating(entity.getRating());
+        ratingResponseDTO.setReview(entity.getReview());
+
+        if (entity.getOrder() != null) {
+            ratingResponseDTO.setOrderDate(entity.getOrder().getOrderDate());
+
+            if (entity.getOrder().getCustomer() != null) {
+                ratingResponseDTO.setCustomerName(entity.getOrder().getCustomer().getCustomerName());
+                ratingResponseDTO.setCustomerPhone(entity.getOrder().getCustomer().getCustomerPhone());
+            }
+        }
+
+        return ratingResponseDTO;
+    }
+
+    public static DeliveryDriverDTO deliveryDriverTODeliveryDriverDTO (DeliveryDriver deliveryDriver, DeliveryDriverDTO deliveryDriverDTO) {
+        deliveryDriverDTO.setDriverName(deliveryDriver.getDriverName());
+        deliveryDriverDTO.setDriverPhone(deliveryDriver.getDriverPhone());
+        deliveryDriverDTO.setDriverVehicle(deliveryDriver.getDriverVehicle());
+        return deliveryDriverDTO;
+    }
+
+
 }

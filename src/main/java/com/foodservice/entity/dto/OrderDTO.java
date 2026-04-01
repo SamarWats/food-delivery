@@ -11,13 +11,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderDTO {
     private CustomerDTO customer;
     private RestaurantResponseDTO restaurant;
     private DeliveryDriverDTO deliveryDriver;
     private LocalDateTime orderDate;
     private String orderStatus;
-    private List<OrderItemDetailDTO> orderItems;
 }
