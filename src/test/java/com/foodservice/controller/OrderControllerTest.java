@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.foodservice.entity.Customer;
 import com.foodservice.entity.dto.*;
 import com.foodservice.exception.OrderInvalidRequestException;
+import com.foodservice.exception.ResourceNotFoundException;
 import com.foodservice.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -267,5 +269,48 @@ class OrderControllerTest {
                 .andExpect(jsonPath("$.data").exists())
                 .andExpect(jsonPath("$.data.orderItems").isArray())
                 .andExpect(jsonPath("$.data.orderItems").isEmpty());
+    }
+
+    @Test
+    @DisplayName("PASS - GET /api/v1/orders/revenue/restaurant/{id} returns revenue data")
+    void getRevenueByRestaurantId_Pass() throws Exception {
+        RestaurantRevenueDTO revenue = new RestaurantRevenueDTO();
+        revenue.setRestaurantId(1);
+        revenue.setRestaurantName("Test Restaurant");
+        revenue.setTotalOrders(10L);
+        revenue.setTotalRevenue(new BigDecimal("500.00"));
+        revenue.setAverageOrderValue(new BigDecimal("50.00"));
+
+        when(orderService.getRevenueByRestaurantId(eq(1), any(), any())).thenReturn(revenue);
+
+        mockMvc.perform(get("/api/v1/orders/revenue/restaurant/{id}", 1)
+                        .param("fromDate", "2024-01-01")
+                        .param("toDate", "2024-12-31"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.message").value("Revenue fetched successfully for restaurant ID: 1"))
+                .andExpect(jsonPath("$.data").exists())
+                .andExpect(jsonPath("$.data.restaurantId").value(1))
+                .andExpect(jsonPath("$.data.restaurantName").value("Test Restaurant"))
+                .andExpect(jsonPath("$.data.totalOrders").value(10))
+                .andExpect(jsonPath("$.data.totalRevenue").value(500.00))
+                .andExpect(jsonPath("$.data.averageOrderValue").value(50.00));
+    }
+
+    @Test
+    @DisplayName("FAIL - GET /api/v1/orders/revenue/restaurant/{id} throws ResourceNotFoundException → handled by GlobalExceptionHandler → 404")
+    void getRevenueByRestaurantId_Fail_RestaurantNotFound() throws Exception {
+        when(orderService.getRevenueByRestaurantId(eq(999), any(), any()))
+                .thenThrow(new ResourceNotFoundException("Restaurant not found with ID: 999"));
+
+        mockMvc.perform(get("/api/v1/orders/revenue/restaurant/{id}", 999)
+                        .param("fromDate", "2024-01-01")
+                        .param("toDate", "2024-12-31"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.message").value("404 NOT_FOUND, Restaurant not found with ID: 999"))
+                .andExpect(jsonPath("$.data").doesNotExist());
     }
 }

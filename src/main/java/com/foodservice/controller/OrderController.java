@@ -11,9 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -41,6 +44,25 @@ public class OrderController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ApiResponseDTO(200, "order detail having id: " + orderId, orderWithItemDTO));
+    }
+
+    @GetMapping("/revenue/restaurant/{id}")
+    public ResponseEntity<ApiResponseDTO> getRevenueByRestaurantId(
+            @PathVariable("id") Integer restaurantId,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
+
+        RestaurantRevenueDTO revenue =
+                orderService.getRevenueByRestaurantId(restaurantId, fromDate, toDate);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ApiResponseDTO(
+                        200,
+                        "Revenue fetched successfully for restaurant ID: " + restaurantId,
+                        revenue));
     }
 
 }

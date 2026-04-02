@@ -1,12 +1,11 @@
 package com.foodservice.service;
 
 import com.foodservice.entity.Order;
-import com.foodservice.entity.dto.OrderCustomerDTO;
-import com.foodservice.entity.dto.OrderCustomerPageDTO;
-import com.foodservice.entity.dto.OrderDTO;
-import com.foodservice.entity.dto.OrderWithItemDTO;
+import com.foodservice.entity.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
 
 public interface OrderService {
 
@@ -15,5 +14,7 @@ public interface OrderService {
     OrderCustomerPageDTO getOrdersByCustomerId(Integer customerId, Pageable pageable, String status);
 
     OrderWithItemDTO getOrderDetailsById(Integer orderId);
+
+    RestaurantRevenueDTO getRevenueByRestaurantId(Integer restaurantId, LocalDate fromDate, LocalDate toDate);
 
 }
