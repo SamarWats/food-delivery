@@ -96,4 +96,12 @@ public class GlobalExceptionHandler {
                 .body(new ApiResponseDTO(HttpStatus.BAD_REQUEST.value(), message, null));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponseDTO> handleGenericException(Exception ex) {
+        log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ApiResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred. Please try again later.", null));
+    }
+
 }
