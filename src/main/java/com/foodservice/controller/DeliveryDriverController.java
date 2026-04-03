@@ -112,9 +112,7 @@ public class DeliveryDriverController {
      
      @GetMapping("/{orderId}/driver")
      public ResponseEntity<ApiResponseDTO> getDriverByOrder(@PathVariable Integer orderId){
-
-         DeliveryDriverResponseDTO driver = orderService.getDriverByOrder(orderId);
-
+         DeliveryDriverResponseDTO driver = deliveryDriverservice.getDriverByOrder(orderId);
          return ResponseEntity.ok(
                  new ApiResponseDTO(200, "Driver fetched successfully", driver)
          );

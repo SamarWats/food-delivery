@@ -107,8 +107,8 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
     }
     
     @Override
-    public DeliveryDriverResponseDTO getDriverByOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId)
+    public DeliveryDriverResponseDTO getDriverByOrder(Integer orderId) {
+        Order order = orderRepository.findById(Long.valueOf(orderId))
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
         if (order.getDeliveryDriver() == null) {
