@@ -110,10 +110,11 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
     public DeliveryDriverResponseDTO getDriverByOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
-        if (order.getDriver() == null) {
+
+        if (order.getDeliveryDriver() == null) {
             throw new RuntimeException("Driver not assigned to this order");
         }
 
-        return mapper.toDriverDTO(order.getDriver());
+        return mapper.toDriverDTO(order.getDeliveryDriver());
     }
 }
