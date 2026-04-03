@@ -5,59 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Analytics</title>
 
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
-    <!-- Your JS (only animation now) -->
-    <script th:src="@{/js/customer/analytics.js}" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-[Inter] p-6">
+<body class="bg-gray-50 font-[Inter] min-h-screen">
 
-<!-- Back Button -->
-<button onclick="window.history.back()"
-        class="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700 transition mb-6">
-    <i class="fa fa-arrow-left"></i> Back
-</button>
+<!-- Header -->
+<div class="bg-white border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-6 py-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button onclick="window.history.back()"
+                        class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-medium transition-colors">
+                    <i class="fa fa-arrow-left"></i>
+                    Back
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
+                        <i class="fa fa-chart-line text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Customer Analytics</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- Heading -->
-<h2 class="text-2xl font-semibold text-gray-800 mb-6">
-    <i class="fa fa-chart-line text-blue-500"></i> Customer Analytics
-</h2>
+<!-- Main Content -->
+<div class="max-w-4xl mx-auto px-6 py-12">
 
-<!-- Cards -->
-<div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-    <div class="card bg-white rounded-xl shadow-md p-6 text-center">
-        <h3 class="text-sm text-gray-500 mb-2">
-            <i class="fa fa-box text-blue-500"></i> Total Orders
-        </h3>
-        <p class="text-2xl font-bold text-gray-800" th:text="${analytics.totalOrders}"></p>
+    <!-- Customer Info -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+        <div class="flex items-start gap-6">
+            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fa fa-user text-white text-2xl"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+                <h2 class="text-3xl font-bold text-gray-900 mb-1" th:text="${analytics.customerName}">
+                    Customer Name
+                </h2>
+                <p class="text-xl text-gray-600 mb-4" th:text="${analytics.customerEmail}">
+                    customer@example.com
+                </p>
+            </div>
+        </div>
     </div>
 
-    <div class="card bg-white rounded-xl shadow-md p-6 text-center">
-        <h3 class="text-sm text-gray-500 mb-2">
-            <i class="fa fa-indian-rupee-sign text-green-500"></i> Total Spend
-        </h3>
-        <p class="text-2xl font-bold text-gray-800">
-            ₹ <span th:text="${analytics.totalSpend}"></span>
-        </p>
-    </div>
+    <!-- Metrics Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    <div class="card bg-white rounded-xl shadow-md p-6 text-center">
-        <h3 class="text-sm text-gray-500 mb-2">
-            <i class="fa fa-calculator text-purple-500"></i> Avg Order Value
-        </h3>
-        <p class="text-2xl font-bold text-gray-800">
-            ₹ <span th:text="${analytics.avgOrderValue}"></span>
-        </p>
+        <!-- Total Orders -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center card-hover">
+            <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl flex items-center justify-center">
+                <i class="fa fa-box text-white text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Total Orders</h3>
+            <p class="text-3xl font-bold text-gray-900" th:text="${analytics.totalOrders}">
+                0
+            </p>
+        </div>
+
+        <!-- Total Spend -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center card-hover">
+            <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
+                <i class="fa fa-indian-rupee-sign text-white text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Total Spend</h3>
+            <p class="text-3xl font-bold text-gray-900">
+                ₹ <span th:text="${analytics.totalSpend}">0</span>
+            </p>
+        </div>
+
+        <!-- Avg Order Value -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 text-center card-hover sm:col-span-2 lg:col-span-1">
+            <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                <i class="fa fa-calculator text-white text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Average Order Value</h3>
+            <p class="text-3xl font-bold text-gray-900">
+                ₹ <span th:text="${analytics.avgOrderValue}">0</span>
+            </p>
+        </div>
+
     </div>
 
 </div>
+
+<style>
+    .card-hover {
+        transition: all 0.2s ease;
+    }
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+</style>
+
+<script th:src="@{/js/customer/analytics.js}" defer></script>
 
 </body>
 </html>

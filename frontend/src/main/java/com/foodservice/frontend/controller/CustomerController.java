@@ -15,6 +15,17 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+
+    @GetMapping("/analytics-search")
+    public String searchAnalytics() {
+        return "pages/customer/customer-search";
+    }
+
+    @GetMapping("/order-search")
+    public String searchOrders() {
+        return "pages/customer/order-search";
+    }
+
     @GetMapping()
     public String getAllCustomers(
             @RequestParam Map<String, String> params,

@@ -1,110 +1,163 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Basic Setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Orders</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
-    <!-- JS -->
-    <script th:src="@{/js/customer/orders.js}" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-[Inter] p-6">
+<body class="bg-gray-50 font-[Inter] min-h-screen">
 
-<!-- Back Button -->
-<button onclick="window.history.back()"
-        class="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700 transition mb-6">
-    <i class="fa fa-arrow-left"></i> Back
-</button>
-
-<!-- Heading -->
-<h2 class="text-2xl font-semibold text-gray-800 mb-6">
-    <i class="fa fa-cart-shopping text-blue-500"></i> Customer Orders
-</h2>
-
-<!-- Container -->
-<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-
-    <!-- Order Card -->
-    <div class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition"
-         th:each="o : ${orders}">
-
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-4">
-
-            <span class="text-sm text-gray-600 flex items-center gap-2">
-                <i class="fa fa-calendar text-blue-500"></i>
-                <span th:text="${#temporals.format(o.orderDate, 'dd MMM yyyy HH:mm')}"></span>
-            </span>
-
-            <!-- Status Badge -->
-            <span th:text="${o.orderStatus}"
-                  th:class="'px-3 py-1 text-xs font-semibold rounded-full ' +
-                            (${o.orderStatus} == 'DELIVERED' ? 'bg-green-100 text-green-700' :
-                            (${o.orderStatus} == 'PENDING' ? 'bg-yellow-100 text-yellow-700' :
-                            (${o.orderStatus} == 'CANCELLED' ? 'bg-red-100 text-red-700' :
-                            'bg-gray-100 text-gray-700')))">
-            </span>
-
+<!-- Header -->
+<div class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-6 py-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button onclick="window.history.back()"
+                        class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-medium transition-all">
+                    <i class="fa fa-arrow-left"></i>
+                    Back
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                        <i class="fa fa-cart-shopping text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900">Customer Orders</h1>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
 
-        <!-- Item -->
-        <div class="mb-4 space-y-1 text-sm text-gray-700">
-            <p>
-                <strong><i class="fa fa-utensils text-purple-500"></i> Item:</strong>
-                <span th:text="${o.itemName}"></span>
-            </p>
+<!-- Main Content -->
+<div class="max-w-6xl mx-auto px-6 py-12">
 
-            <p>
-                <strong><i class="fa fa-align-left text-gray-500"></i> Description:</strong>
-                <span th:text="${o.itemDescription}"></span>
-            </p>
-
-            <p>
-                <strong><i class="fa fa-hashtag text-blue-500"></i> Quantity:</strong>
-                <span th:text="${o.quantity}"></span>
-            </p>
-
-            <p>
-                <strong><i class="fa fa-indian-rupee-sign text-green-500"></i> Price:</strong>
-                ₹<span th:text="${o.itemPrice}"></span>
-            </p>
+    <!-- Empty State -->
+    <div th:if="${orders.isEmpty()}" class="text-center py-24">
+        <div class="w-24 h-24 mx-auto mb-8 bg-gray-100 rounded-3xl flex items-center justify-center">
+            <i class="fa fa-inbox text-3xl text-gray-400"></i>
         </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">No Orders Found</h3>
+        <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+            This customer has no orders yet. Try another customer ID.
+        </p>
+        <button onclick="window.history.back()"
+                class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+            Try Another Customer
+        </button>
+    </div>
 
-        <!-- Divider -->
-        <div class="border-t my-3"></div>
+    <!-- Orders Grid -->
+    <div th:unless="${orders.isEmpty()}" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 
-        <!-- Restaurant -->
-        <div class="space-y-1 text-sm text-gray-700">
-            <p>
-                <strong><i class="fa fa-store text-blue-500"></i> Restaurant:</strong>
-                <span th:text="${o.restaurantName}"></span>
-            </p>
+        <!-- Order Card -->
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-200 order-card"
+             th:each="o : ${orders}">
 
-            <p>
-                <strong><i class="fa fa-location-dot text-red-500"></i> Address:</strong>
-                <span th:text="${o.restaurantAddress}"></span>
-            </p>
+            <!-- Header -->
+            <div class="p-6 pb-4 border-b border-gray-100">
+                <div class="flex justify-between items-start gap-4">
 
-            <p>
-                <strong><i class="fa fa-phone text-green-500"></i> Phone:</strong>
-                <span th:text="${o.restaurantPhone}"></span>
-            </p>
+                    <!-- Date & Time -->
+                    <div class="flex items-center gap-2 text-sm text-gray-600 font-medium">
+                        <i class="fa fa-calendar text-orange-500"></i>
+                        <span th:text="${#temporals.format(o.orderDate, 'dd MMM yyyy HH:mm')}"></span>
+                    </div>
+
+                    <!-- Status Badge -->
+                    <span th:class="'px-3 py-1 text-xs font-bold rounded-full inline-flex items-center gap-1 ' +
+                                  (${o.orderStatus} == 'DELIVERED' ? 'bg-emerald-100 text-emerald-800' :
+                                  (${o.orderStatus} == 'PENDING' ? 'bg-amber-100 text-amber-800' :
+                                  (${o.orderStatus} == 'CANCELLED' ? 'bg-red-100 text-red-800' :
+                                  'bg-gray-100 text-gray-800')))"
+                          th:text="${o.orderStatus}">
+                        Status
+                    </span>
+
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 space-y-4">
+
+                <!-- Item Details -->
+                <div class="space-y-2">
+                    <div class="flex items-start gap-3">
+                        <i class="fa fa-utensils text-purple-500 mt-1 flex-shrink-0"></i>
+                        <div>
+                            <div class="font-semibold text-gray-900 text-lg" th:text="${o.itemName}">
+                                Item Name
+                            </div>
+                            <p class="text-sm text-gray-600" th:text="${o.itemDescription}">
+                                Description
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex items-center gap-2 text-gray-700">
+                            <i class="fa fa-hashtag text-blue-500 w-4"></i>
+                            <span>Qty: <span th:text="${o.quantity}">0</span></span>
+                        </div>
+                        <div class="flex items-center justify-end gap-2 text-gray-700 font-semibold">
+                            <i class="fa fa-indian-rupee-sign text-emerald-500 w-4"></i>
+                            <span>₹<span th:text="${o.itemPrice}">0</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="border-t border-gray-100 pt-4">
+
+                    <!-- Restaurant Details -->
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center gap-2 text-gray-900 font-semibold">
+                            <i class="fa fa-store text-orange-500 w-4"></i>
+                            <span th:text="${o.restaurantName}">Restaurant</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-600">
+                            <i class="fa fa-location-dot text-red-500 w-4"></i>
+                            <span th:text="${o.restaurantAddress}">Address</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-600">
+                            <i class="fa fa-phone text-emerald-500 w-4"></i>
+                            <span th:text="${o.restaurantPhone}">Phone</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
+    <!-- Orders Count -->
+    <div th:unless="${orders.isEmpty()}" class="mt-12 pt-8 border-t border-gray-200">
+        <div class="text-center">
+            <p class="text-sm text-gray-600">
+                Showing <span th:text="${orders.size()}">0</span> orders
+            </p>
+        </div>
+    </div>
+
 </div>
+
+<style>
+    .order-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .order-card:hover {
+        transform: translateY(-8px);
+    }
+</style>
+
+<script th:src="@{/js/customer/orders.js}" defer></script>
 
 </body>
 </html>

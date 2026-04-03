@@ -81,6 +81,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerAnalyticsDTO getCustomerAnalytics(Integer customerId) {
+        
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                String.format(CustomerErrorConstant.CUSTOMER_NOT_FOUND, customerId)
+                        )
+                );
+
+        CustomerDTO customerDTO = CustomMapper.customerToCustomerDTO(customer);
 
         List<OrderItemDetailDTO> items =
                 orderRepository.getOrderDetailsByCustomerId(customerId);
@@ -107,7 +116,9 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerAnalyticsDTO(
                 totalOrders,
                 totalSpend,
-                avgOrderValue
+                avgOrderValue,
+                customerDTO.getCustomerName(),
+                customerDTO.getCustomerEmail()
         );
     }
 

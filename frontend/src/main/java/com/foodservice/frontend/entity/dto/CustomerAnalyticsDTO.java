@@ -12,4 +12,6 @@ public class CustomerAnalyticsDTO {
     private Integer totalOrders;
     private Double totalSpend;
     private Double avgOrderValue;
+    private String customerName;
+    private String customerEmail;
 }
