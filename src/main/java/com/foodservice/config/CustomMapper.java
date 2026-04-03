@@ -168,5 +168,75 @@ public class CustomMapper {
         return deliveryDriverDTO;
     }
 
+ // -------- Driver → DTO --------
+    /*public DeliveryDriverResponseDTO toDriverDTO(DeliveryDriver driver) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setDriverId(driver.getDriverId());
+        dto.setDriverName(driver.getDriverName());
+        dto.setDriverPhone(driver.getDriverPhone());
+        dto.setDriverVehicle(driver.getDriverVehicle());
+        return dto;
+    }
+
+    // -------- Order → DTO --------
+    public DeliveryDriverResponseDTO toOrderDTO(Order order) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+
+        dto.setDriverId(order.getDeliveryDriver().getDriverId());
+        dto.setDriverName(order.getDeliveryDriver().getDriverName());
+
+        dto.setOrderId(order.getOrderId());
+        dto.setOrderStatus(order.getOrderStatus());
+
+        dto.setCustomerName(order.getCustomer().getCustomerName());
+        dto.setResturentName(order.getRestaurant().getRestaurantName());
+
+        return dto;
+    }
+
+    // -------- Customer → DTO --------
+    public DeliveryDriverResponseDTO toCustomerDTO(Customer customer) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setCustomerId(customer.getCustomerId());
+        dto.setCustomerName(customer.getCustomerName());
+        return dto;
+    }
+
+    // -------- Restaurant → DTO --------
+    public DeliveryDriverResponseDTO toRestaurantDTO(Restaurant restaurant) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setRestaurantId(restaurant.getRestaurantId());
+        dto.setResturentName(restaurant.getRestaurantName());
+        return dto;
+    }*/
+    
+ // Add these methods to CustomMapper class
+    public DeliveryDriverResponseDTO toDriverDTO(DeliveryDriver driver) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setDriverName(driver.getDriverName());
+        dto.setDriverPhone(driver.getDriverPhone());
+        dto.setDriverVehicle(driver.getDriverVehicle());
+        return dto;
+    }
+
+    public DeliveryDriverResponseDTO toOrderDTO(Order order) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        dto.setCustomer(customerToCustomerDTO(order.getCustomer()));
+        dto.setRestaurant(toRestaurantDto(order.getRestaurant()));
+        dto.setOrderStatus(order.getOrderStatus());
+        dto.setOrderDate(order.getOrderDate());
+        return dto;
+    }
+
+    public DeliveryDriverResponseDTO toRestaurantDTO(Restaurant restaurant) {
+        return toRestaurantDto(restaurant);
+    }
+
+    public DeliveryDriverResponseDTO toCustomerDTO(Customer customer) {
+        DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+        // Map customer fields as needed
+        return dto;
+    }
+
 
 }

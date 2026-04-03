@@ -77,5 +77,23 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 	List<Order> findByDeliveryDriverIdAndCustomerId(Integer driverId, Integer customerId);
 
+	@Query("""
+		    SELECT new com.foodservice.entity.dto.RestaurantRevenueDTO(
+		        COUNT(o.orderId),
+		        SUM(o.totalAmount),
+		        r.restaurantName
+		    )
+		    FROM Order o
+		    JOIN o.restaurant r
+		    WHERE r.restaurantId = :restaurantId
+		    AND (:fromDate IS NULL OR o.orderDate >= :fromDate)
+		    AND (:toDate IS NULL OR o.orderDate <= :toDate)
+		    GROUP BY r.restaurantId, r.restaurantName
+		""")
+		RestaurantRevenueDTO getRevenueByRestaurantId(
+		    @Param("restaurantId") Integer restaurantId,
+		    @Param("fromDate") LocalDateTime fromDate,
+		    @Param("toDate") LocalDateTime toDate
+		);
 
 }
