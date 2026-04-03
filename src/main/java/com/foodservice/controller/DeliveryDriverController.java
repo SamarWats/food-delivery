@@ -28,9 +28,9 @@ public class DeliveryDriverController {
 //    Logger log = LoggerFactory.getLogger(DeliveryDriverController.class);
 //    private static final Logger log = LoggerFactory.getLogger(DeliveryDriverController.class);
     
-    public DeliveryDriverController(DeliveryDriverService deliveryDriverservice){
-		this.deliveryDriverservice = deliveryDriverservice; 
-	}
+//    public DeliveryDriverController(DeliveryDriverService deliveryDriverservice){
+//		this.deliveryDriverservice = deliveryDriverservice; 
+//	}
 
     // ---------------- Get Driver by ID --------------
     @GetMapping(value = "/{driverId}", produces = "application/json")
