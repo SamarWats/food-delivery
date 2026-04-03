@@ -3,9 +3,8 @@ package com.foodservice.controller;
 import com.foodservice.entity.DeliveryDriver;
 import com.foodservice.entity.dto.DeliveryDriverResponseDTO;
 import com.foodservice.service.DeliveryDriverService;
-import com.foodservice.service.OrderService;
-import com.foodservice.service.JwtService;
-import com.foodservice.security.UserDetailsServiceImpl;
+import com.foodservice.security.JwtService; 
+import com.foodservice.service.impl.UserDetailsServiceImpl; 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 	    private DeliveryDriverService deliveryDriverService;
 
 	    @MockBean
-	    private OrderService orderService;   // ✅ ADD THIS
+	    private OrderService orderService;  
 
 	    @MockBean
 	    private JwtService jwtService;
