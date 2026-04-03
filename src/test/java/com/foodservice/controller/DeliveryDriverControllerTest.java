@@ -46,22 +46,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 	    private DeliveryDriverService deliveryDriverService;
 
 	    @MockBean
-	    private com.foodservice.security.JwtService jwtService;
+	    private OrderService orderService;   // ✅ ADD THIS
 
 	    @MockBean
-	    private com.foodservice.service.impl.UserDetailsServiceImpl userDetailsService;
+	    private JwtService jwtService;
 
+	    @MockBean
+	    private UserDetailsServiceImpl userDetailsService;
+	    
 	    @Autowired
 	    private ObjectMapper objectMapper;
 	    
-	    @Mock
-	    private OrderRepository orderRepository;
-
-	    @Mock
-	    private CustomMapper mapper;
-
-	    @InjectMocks
-	    private OrderServiceImpl orderService;
 
     // ---------------- GET DRIVER BY ID ----------------
     @Test
@@ -207,7 +202,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
         dto.setDriverName("John");
 
-        Mockito.when(orderService.getDriverByOrder(1L)).thenReturn(dto);
+        Mockito.when(orderService.getDriverByOrder(1)).thenReturn(dto);
 
         mockMvc.perform(get("/api/v1/orders/1/driver"))
                 .andExpect(status().isOk())
