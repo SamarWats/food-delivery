@@ -50,12 +50,6 @@ public class CustomerServiceImpl implements CustomerService {
         Pageable pageable = PageRequest.of(page, size);
         Page<Customer> customers = customerRepository.findAll(pageable);
 
-        if (customers.isEmpty()) {
-            throw new ResourceNotFoundException(
-                    CustomerErrorConstant.NO_CUSTOMERS_FOUND
-            );
-        }
-
         return customers
                 .map(CustomMapper::customerToCustomerDTO)
                 .getContent();   // ✅ convert Page → List
@@ -67,12 +61,6 @@ public class CustomerServiceImpl implements CustomerService {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Customer> customers = customerRepository.findCustomersByCity(city , pageable);
-
-        if (customers.isEmpty()) {
-            throw new ResourceNotFoundException(
-                    String.format(CustomerErrorConstant.NO_CUSTOMERS_FOUND_IN_CITY, city)
-            );
-        }
 
         return customers
                 .map(CustomMapper::customerToCustomerDTO)
@@ -97,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<OrderItemDetailDTO> items =
                 orderRepository.getOrderDetailsByCustomerId(customerId);
 
-        if (items == null || items.isEmpty()) {
+        if (items == null) {
             throw new ResourceNotFoundException(
                     String.format(CustomerErrorConstant.NO_ORDER_DATA_FOUND, customerId)
             );
@@ -135,12 +123,6 @@ public class CustomerServiceImpl implements CustomerService {
                 deliveryAddressRepository.findByCustomerCustomerId(customerId)
                         .stream().map(CustomMapper::deliveryAddressToDTO)
                         .toList();
-
-        if (deliveryAddressDTOS.isEmpty()) {
-            throw new ResourceNotFoundException(
-                    String.format(DeliveryAddressErrorConstant.NO_ADDRESSES_FOUND_FOR_CUSTOMER, customerId)
-            );
-        }
 
         return deliveryAddressDTOS;
     }
