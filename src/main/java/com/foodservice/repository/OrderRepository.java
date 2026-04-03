@@ -74,10 +74,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     WHERE io.order.orderId = :orderId
 """)
     List<ItemWithQuantity> getOrderItemWithQuantityById(@Param("orderId") Integer orderId);
-
     List<Order> findByDeliveryDriverDriverId(Integer driverId);
 
-    // Add this query to your existing OrderRepository
+	List<Order> findByDeliveryDriverDriverIdAndCustomerCustomerId(Integer driverId, Integer customerId);
 
     @Query("""
     SELECT new com.foodservice.entity.dto.RestaurantRevenueDTO(

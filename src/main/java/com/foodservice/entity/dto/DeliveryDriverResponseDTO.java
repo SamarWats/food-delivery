@@ -1,9 +1,6 @@
 package com.foodservice.entity.dto;
 
 import lombok.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -13,17 +10,19 @@ public class DeliveryDriverResponseDTO {
     private String driverName;
     private String driverPhone;
     private String driverVehicle;
-
     private Integer orderId;
-    private String customerName;
     private String resturentName;
+    private Integer resturentId;
+    private Integer customerId;
+    private String customerName;
     private String orderStatus;
-	public Integer getDriverId() {
-		return driverId;
-	}
-	public void setDriverId(Integer driverId) {
-		this.driverId = driverId;
-	}
+    
+    public Integer getDriverId() {
+        return driverId;
+    }
+    public void setDriverId(Integer driverId) {
+        this.driverId = driverId;
+    }
 	public String getDriverName() {
 		return driverName;
 	}
@@ -48,11 +47,11 @@ public class DeliveryDriverResponseDTO {
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
-	public String getCustomerName() {
-		return customerName;
+	public Integer getCustomerId() {
+		return customerId;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 	public String getResturentName() {
 		return resturentName;
@@ -65,5 +64,17 @@ public class DeliveryDriverResponseDTO {
 	}
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+	public Integer getResturentId() {
+		return resturentId;
+	}
+	public void setResturentId(Integer resturentId) {
+		this.resturentId = resturentId;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 }
