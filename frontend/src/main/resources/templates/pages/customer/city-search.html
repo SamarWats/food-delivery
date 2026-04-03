@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers by City</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-50 to-blue-50 font-[Inter] min-h-screen py-16 px-4 sm:px-6 lg:px-8">
+
+<div class="max-w-2xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-3xl px-8 py-6 shadow-2xl mb-8 border border-white/50">
+            <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl">
+                <i class="fa fa-city text-white text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Customers by City</h1>
+                <p class="text-sm text-gray-600 mt-2 font-medium uppercase tracking-wide">Location Intelligence</p>
+            </div>
+        </div>
+        <p class="text-xl text-gray-700 max-w-md mx-auto leading-relaxed">
+            Search customers by city to analyze geographic distribution and demographics
+        </p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-10 lg:p-12 border border-white/50">
+        <div class="space-y-6">
+
+            <!-- Input -->
+            <div class="relative">
+                <div class="absolute left-5 top-1/2 -translate-y-1/2">
+                    <i class="fa fa-map-marker-alt text-indigo-500 text-xl"></i>
+                </div>
+                <input
+                        id="cityName"
+                        type="text"
+                        placeholder="Enter city name (e.g. New York, London)"
+                        class="w-full pl-16 pr-5 py-5 border-2 border-gray-200 rounded-2xl text-xl font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 shadow-inner"
+                />
+            </div>
+
+            <!-- Button -->
+            <button
+                    onclick="fetchCustomersByCity()"
+                    class="w-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white py-6 px-8 rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1"
+            >
+                <i class="fa fa-search-location"></i>
+                <span>Find Customers</span>
+            </button>
+
+            <!-- Error -->
+            <div id="error" class="hidden bg-red-50/80 border border-red-200 rounded-2xl p-5 backdrop-blur-sm">
+                <div class="flex items-center gap-3 text-sm text-red-800">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span>Enter a valid city name</span>
+                </div>
+            </div>
+
+            <!-- Examples -->
+            <div class="pt-6 border-t border-gray-200">
+                <p class="text-xs text-gray-500 text-center">Examples: New York, London, Mumbai, Delhi</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function fetchCustomersByCity() {
+        const city = document.getElementById("cityName").value.trim();
+        const error = document.getElementById("error");
+
+        if (!city || city.length < 2) {
+            error.classList.remove("hidden");
+            return;
+        }
+
+        error.classList.add("hidden");
+        window.location.href = `/customers/city?city=${encodeURIComponent(city)}`;
+    }
+
+    // Enter key support
+    document.getElementById("cityName").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") fetchCustomersByCity();
+    });
+
+    // Auto focus
+    window.addEventListener("load", () => {
+        document.getElementById("cityName").focus();
+    });
+</script>
+
+</body>
+</html>

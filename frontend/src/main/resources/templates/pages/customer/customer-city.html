@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers in <span th:text="${cityName}"></span></title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-50 to-blue-50 font-[Inter] min-h-screen">
+
+<!-- Header -->
+<div class="bg-white/90 backdrop-blur-sm border-b border-indigo-100 sticky top-0 z-20 shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button onclick="window.history.back()"
+                        class="flex items-center gap-2 px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-semibold transition-all border border-indigo-200">
+                    <i class="fa fa-arrow-left"></i>
+                    Back to Search
+                </button>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fa fa-users text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">
+                            Customers in <span class="text-indigo-600" th:text="${cityName}">City</span>
+                        </h1>
+                        <p class="text-sm text-gray-600" th:text="'Showing ' + ${customers.size()} + ' customers'">0 customers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="max-w-6xl mx-auto px-6 py-12">
+
+    <!-- Empty State -->
+    <div th:if="${customers.isEmpty()}" class="text-center py-32">
+        <div class="w-32 h-32 mx-auto mb-12 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-3xl flex items-center justify-center shadow-xl">
+            <i class="fa fa-users-slash text-5xl text-indigo-400"></i>
+        </div>
+        <h3 class="text-3xl font-bold text-gray-900 mb-4" th:text="'No customers found in ' + ${cityName}">
+            No customers found
+        </h3>
+        <p class="text-xl text-gray-600 mb-10 max-w-lg mx-auto">
+            No customers match this city. Try searching with a different city name.
+        </p>
+        <button onclick="window.history.back()"
+                class="bg-indigo-500 hover:bg-indigo-600 text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all flex items-center gap-3 mx-auto">
+            <i class="fa fa-search"></i>
+            Try Another City
+        </button>
+    </div>
+
+    <!-- Customers Grid -->
+    <div th:unless="${customers.isEmpty()}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Customer Card -->
+        <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl border border-white/50 transition-all duration-300 customer-card p-8 hover:-translate-y-2"
+             th:each="customer : ${customers}">
+
+            <!-- Header -->
+            <div class="flex items-start justify-between mb-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                        <i class="fa fa-user text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900" th:text="${customer.customerName}">
+                            Customer Name
+                        </h3>
+                        <p class="text-sm text-indigo-600 font-semibold" th:text="${customer.customerId}">
+                            ID: 0
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-4 mb-6">
+                <div class="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl">
+                    <i class="fa fa-envelope text-indigo-500 text-lg w-5"></i>
+                    <span class="text-gray-900 font-medium" th:text="${customer.customerEmail}">
+                        email@example.com
+                    </span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
+                    <i class="fa fa-phone text-emerald-500 text-lg w-5"></i>
+                    <span class="text-gray-900 font-medium" th:text="${customer.customerPhone}">
+                        +1-xxx-xxx-xxxx
+                    </span>
+                </div>
+            </div>
+
+            <!-- Action -->
+            <div class="pt-4 border-t border-gray-100">
+                <a th:href="@{'/customers/' + ${customer.customerId} + '/analytics'}"
+                   class="w-full block bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white py-3 px-6 rounded-xl font-semibold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                    <i class="fa fa-chart-line"></i>
+                    View Analytics
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .customer-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+</style>
+
+</body>
+</html>
