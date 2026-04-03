@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/v1/drivers")
-//@RequiredArgsConstructor
-//@Slf4j
+@RequiredArgsConstructor
+@Slf4j
 public class DeliveryDriverController {
 
     private final DeliveryDriverService deliveryDriverservice;
