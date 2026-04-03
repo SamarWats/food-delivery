@@ -200,7 +200,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
         dto.setDriverName("John");
 
-        Mockito.when(deliveryDriverService.getDriverByOrder(1)).thenReturn(dto);
+        Mockito.when(deliveryDriverService.getDriverByOrder(1))
+                .thenReturn(dto);
 
         mockMvc.perform(get("/api/v1/orders/1/driver"))
                 .andExpect(status().isOk())

@@ -64,5 +64,16 @@ public class OrderController {
                         "Revenue fetched successfully for restaurant ID: " + restaurantId,
                         revenue));
     }
+    
+    @GetMapping("/{orderId}/driver")
+    public ResponseEntity<ApiResponseDTO> getDriverByOrder(@PathVariable Integer orderId) {
+
+        DeliveryDriverResponseDTO driver =
+                deliveryDriverService.getDriverByOrder(orderId);
+
+        return ResponseEntity.ok(
+                new ApiResponseDTO(200, "Driver fetched successfully", driver)
+        );
+    }
 
 }
