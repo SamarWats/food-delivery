@@ -1,9 +1,6 @@
 package com.foodservice.entity.dto;
 
 import lombok.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -13,34 +10,19 @@ public class DeliveryDriverResponseDTO {
     private String driverName;
     private String driverPhone;
     private String driverVehicle;
-
     private Integer orderId;
     private String resturentName;
     private Integer resturentId;
-	private Integer customerId;
-	private String customerName;
+    private Integer customerId;
+    private String customerName;
     private String orderStatus;
     
-    
-	public DeliveryDriverResponseDTO() {
-		super();
-		this.driverId = driverId;
-		this.driverName = driverName;
-		this.driverPhone = driverPhone;
-		this.driverVehicle = driverVehicle;
-		this.orderId = orderId;
-		this.resturentId = resturentId;
-		this.customerId = customerId;
-		this.customerName= customerName;
-		this.resturentName = resturentName;
-		this.orderStatus = orderStatus;
-	}
-	public Integer getDriverId() {
-		return driverId;
-	}
-	public void setDriverId(Integer driverId) {
-		this.driverId = driverId;
-	}
+    public Integer getDriverId() {
+        return driverId;
+    }
+    public void setDriverId(Integer driverId) {
+        this.driverId = driverId;
+    }
 	public String getDriverName() {
 		return driverName;
 	}
