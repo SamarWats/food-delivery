@@ -223,11 +223,17 @@ public class CustomMapper {
 
     public DeliveryDriverResponseDTO toOrderDTO(Order order) {
         DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
-        dto.setCustomerId(order.getCustomer().getCustomerId());
-        dto.setCustomerName(order.getCustomer().getCustomerName());
-        dto.setResturentId(order.getRestaurant().getRestaurantId());
-        dto.setResturentName(order.getRestaurant().getRestaurantName());
+
         dto.setOrderStatus(order.getOrderStatus());
+
+        if (order.getCustomer() != null) {
+            dto.setCustomerName(order.getCustomer().getCustomerName());
+        }
+
+        if (order.getRestaurant() != null) {
+            dto.setResturentName(order.getRestaurant().getRestaurantName()); // 🔥 ADD THIS
+        }
+
         return dto;
     }
 

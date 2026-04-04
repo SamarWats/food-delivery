@@ -1,4 +1,4 @@
-package src.main.java.com.foodservice.frontend.service.impl;
+package com.foodservice.frontend.service.impl;
 
 import java.util.List;
 

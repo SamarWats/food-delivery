@@ -1,9 +1,10 @@
 package com.foodservice.frontend.service;
 
 import java.util.List;
+import  com.foodservice.frontend.entity.dto.DeliveryDriverResponseDTO;
+import org.springframework.stereotype.Service;
 
-import com.foodservice.frontend.src.main.java.com.foodservice.frontend.entity.dto.DeliveryDriverResponseDTO;
-
+@Service
 public interface DeliveryDriverService {
 
     List<DeliveryDriverResponseDTO> getAllDrivers();

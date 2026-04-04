@@ -49,11 +49,21 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService {
     @Override
     public List<DeliveryDriverResponseDTO> getRestaurantsByDriver(Integer driverId) {
         log.info("Fetching restaurants for driver ID: {}", driverId);
+
         List<Order> orders = orderRepository.findByDeliveryDriverDriverId(driverId);
+
         return orders.stream()
                 .map(Order::getRestaurant)
+                .filter(restaurant -> restaurant != null)
                 .distinct()
-                .map(mapper::toRestaurantDTO)
+                .map(restaurant -> {
+                    DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
+
+                    dto.setResturentId(restaurant.getRestaurantId());
+                    dto.setResturentName(restaurant.getRestaurantName());
+
+                    return dto;
+                })
                 .toList();
     }
 

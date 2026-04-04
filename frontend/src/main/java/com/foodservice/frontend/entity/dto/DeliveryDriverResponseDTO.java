@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class DeliveryDriverResponseDTO {
-
+    private Integer driverId;
     private String driverName;
     private String driverPhone;
     private String driverVehicle;

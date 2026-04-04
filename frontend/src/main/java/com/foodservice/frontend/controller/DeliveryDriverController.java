@@ -16,6 +16,10 @@ public class DeliveryDriverController {
 
     private final DeliveryDriverService service;
 
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "pages/driver/api-dashboard";
+    }
     // Drivers list
     @GetMapping
     public String getDrivers(Model model) {
