@@ -46,6 +46,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 	    @MockBean
 	    private DeliveryDriverService deliveryDriverService;
 
+        @MockBean
+        private OrderService orderService;
+
 	    @MockBean
 	    private JwtService jwtService;
 
@@ -169,14 +172,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void testGetRestaurantsByDriver() throws Exception {
 
         DeliveryDriverResponseDTO dto = new DeliveryDriverResponseDTO();
-        dto.setResturentName("Dominos");
+        dto.setRestaurantName("Dominos");
 
         Mockito.when(deliveryDriverService.getRestaurantsByDriver(1))
                 .thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/v1/drivers/1/restaurants"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data[0].resturentName").value("Dominos"));
+                .andExpect(jsonPath("$.data[0].restaurantName").value("Dominos"));
     }
 
     // ---------------- GET TOTAL ORDERS ----------------
@@ -193,7 +196,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value(2));
     }
-    
+
     @Test
     void testGetDriverByOrderController() throws Exception {
 
@@ -203,7 +206,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         Mockito.when(deliveryDriverService.getDriverByOrder(1))
                 .thenReturn(dto);
 
-        mockMvc.perform(get("/api/v1/orders/1/driver"))
+        mockMvc.perform(get("/api/v1/drivers/1/driver"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.driverName").value("John"));
     }
